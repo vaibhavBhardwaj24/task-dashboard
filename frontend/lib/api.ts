@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 const api = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: API_URL,
 });
 
 api.interceptors.request.use(
@@ -28,7 +30,7 @@ api.interceptors.response.use(
                     throw new Error('No refresh token available');
                 }
 
-                const res = await axios.post('http://localhost:5000/auth/refresh', {
+                const res = await axios.post(`${API_URL}/auth/refresh`, {
                     token: refreshToken,
                 });
 
